@@ -1,0 +1,82 @@
+August 28, 2023
+457
+Systems Programming and Linux Programming
+	C Language. System Calls. Focus on low level systems Calll
+	Unix Command
+	Going to focus on Linux
+	3 free absents.
+	Graduate more work, yay
+System Programming
+	write code at lowest level. Directly to kernel and core system libraries
+	Unix/Linux code is almost all written at systems level
+	understanding lowe level helps with higher levels
+Why Linux
+	Uses a simple kernel. Design for any use.
+	simplicity, do its job well and tends to be small
+	Windows is bloated for system programming.
+	Is harder because of its simplicity.
+	Files and permsion and way to deal with everythign is simpler in Linux
+System Calls
+	99% is just system calls.
+	Calls kernel and executes code of kernel
+	Linux has fewer kernels
+	Each architecture can implenet thier own
+	user space can't use kernel directly(for safety)
+Library C
+	C is main language of Linux/UNIX
+	on modern systems, the C library is provided by the GNUlibc, glibc
+	provides wrappers for system calls, threading support and basic application facilities
+	In linux standard c compiler is the gcc
+ABI and API
+	API: Application programming Interface
+		source compatibility
+	ABI: Application Binary Interface
+		Binary compatibility
+		concerened with issues such as calling conventions
+	Mostly deal with API, a bit less on ABI
+	need to know ABI incase we need to use it
+Standards
+	Linux aims to complay with two most important
+	Portable Operating System(POSXI) or SUS
+	The book of the C language has the standard (hasn't change much since then)
+Files and UNIX
+	In UNIX , everything is a file.
+		so most interaction occur via reading and writing to files
+	Dealing with a file
+		In order to access a file, it must be opened( can be opened for reading, writing or both)
+		all files has a discripter
+Regular File
+	Linux doesn't care what a file is, a file is a stream of bytes.
+	Kernel does not restrict conurrent file access.
+Directories
+	provides names of files and where it is located.
+	Readable for people
+	a inode and a file name pari referred to as a link
+	kernel uses these links to match names with inodes
+File Paths and the kernel
+	usually on directly the root(/)
+	links inside the directory can point tot he inodes of other directories
+	ONLY one root /
+	/-> home -> name2
+	        |-> name1
+	relative uses where you and were you are going to.
+	~ the shell expands the into the users home directory
+	2 special directories
+		. this directory
+		.. parents directory
+Special Files
+	A emeans of accessing hardware devices, keyboard, hard disk, cd rom, etcs
+	Character Special Files
+	Block Special Files
+File System
+	hierarchy, root is the main node, and only one (/)
+	keep files and directories together
+Virtual File System
+	All files exists in a single hierarchy
+	if we need to add new tree.
+	mounting allows to put on directory to reference that location.
+Process are object code in execution
+	any running program
+	also associated with various reources which are manage by kernel
+		kernel manages these resources for the processes using a process descriptor
+	kernel handles multiple processes, but each process thinks its using its own
