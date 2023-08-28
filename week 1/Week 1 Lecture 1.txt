@@ -80,3 +80,5 @@ Process are object code in execution
 	also associated with various reources which are manage by kernel
 		kernel manages these resources for the processes using a process descriptor
 	kernel handles multiple processes, but each process thinks its using its own
+	Executing a directory, execute commands in the directory
+	Linux/UNIX allows files to be read, write, and execute
