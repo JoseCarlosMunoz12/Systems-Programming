@@ -1,0 +1,11 @@
+August 30, 23
+
+Virtual Machine To Use
+	Virtual Box
+	Debian GNU/LINUX
+		Instruction wil be given
+	visual studio and Terminal main focus
+	Add extension for Visual Studio:
+		Code Runner
+		C/C++
+	
