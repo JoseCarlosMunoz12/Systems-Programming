@@ -1,0 +1,20 @@
+Week 2 Lecture 1
+September 6, 2023
+
+
+September 18 and 20, courses will be recorded
+	Will need to shared folder from host as well as usb, if desired
+	no sharing code, messes with sharing
+Basic Linux commands
+	cp is the copy command cp --help
+		uses relative path directory
+	gcc will be use alot
+	mv is like copy, but object
+	ls is lsi of items
+	cp * dir
+		* is for all in directory (file/folder) to copy
+		dir is final place
+	cat /folder
+		will give information of said folder
+	*command for adding user to group
+	*$PATH can add ./ for easier execution of local code. so we can just call item, instead of ./[file name]
