@@ -16,8 +16,15 @@ char* BMI(double bmi){
 }
 
 int main() {
-    double bmi = CalculateBMI(149, 70);
+	int weight;
+	int height;
+	printf("Enter your Weight(pounds): ");
+	scanf("%d", weight);
+	printf("Enter your Height(inches): ");
+	scanf("%d", height);
+	double bmi = CalculateBMI(weight, height);
     char* status = BMI(bmi);
-    printf("BMI = %f\n",bmi);
+    printf("BMI = %f\n", bmi);
     printf("is = %s\n", status);
+    return 0;
 }
