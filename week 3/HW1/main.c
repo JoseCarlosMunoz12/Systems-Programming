@@ -16,15 +16,22 @@ char* BMI(double bmi){
 }
 
 int main() {
-	int weight;
-	int height;
-	printf("Enter your Weight(pounds): ");
-	scanf("%d", weight);
-	printf("Enter your Height(inches): ");
-	scanf("%d", height);
-	double bmi = CalculateBMI(weight, height);
-    char* status = BMI(bmi);
-    printf("BMI = %f\n", bmi);
-    printf("is = %s\n", status);
+	while(true){
+		char value;
+		printf("do you want to calculate your BMI? (Y/N): ");
+		scanf("%c", &value);
+		if(value == "N")
+			break;		
+		int weight;
+		int height;
+		printf("Enter your Weight(pounds): ");
+		scanf("%d", weight);
+		printf("Enter your Height(inches): ");
+		scanf("%d", height);
+		double bmi = CalculateBMI(weight, height);
+		char* status = BMI(bmi);
+		printf("BMI = %f\n",bmi);
+		printf("is = %s\n", status);
+	}
     return 0;
 }
