@@ -25,13 +25,13 @@ int main() {
 		int weight;
 		int height;
 		printf("Enter your Weight(pounds): ");
-		scanf("%d", weight);
+		scanf("%d", &weight);
 		printf("Enter your Height(inches): ");
-		scanf("%d", height);
+		scanf("%d", &height);
 		double bmi = CalculateBMI(weight, height);
 		char* status = BMI(bmi);
-		printf("BMI = %f\n",bmi);
-		printf("is = %s\n", status);
+		printf("Given your weight: %d and your height: %d, your BMI is %.3f which makes you %s\n",
+		weight, height,bmi,status);
 	}
     return 0;
 }
