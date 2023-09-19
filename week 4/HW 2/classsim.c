@@ -5,12 +5,12 @@ int NeedsACurve(int size, int examID, int *arr, int curveValue )
 {
     int num = 0;
     for(int ii = 0; ii < size;ii++)
-        num += *((arr + ii*4) + examID;
+        num += *((arr + ii*4) + examID);
     int average = num / size;
     printf("%d\n", average);
     return average < curveValue;
 }
-void SetNewCurve(int size, int examID, int arr[][examID])
+void SetNewCurve(int size, int examID, int *arr)
 {
     int max = 0;
     for(int ii = 0; ii < size; ii++)
@@ -43,9 +43,9 @@ int main(){
     
     for(int ii =0; ii < 4; ii++)
     {
-        int needsCurve = NeedsACurve(100,ii,students,75);
+        int needsCurve = NeedsACurve(100,ii,(int *)students,75);
         if(needsCurve)
-            SetNewCurve(100,ii,students);
+            SetNewCurve(100,ii,(int *)students);
     }
     for(int ii = 0; ii < 100; ii++)
     {
