@@ -7,10 +7,10 @@ int NeedsACurve(int size, int examID, int *arr, int curveValue )
     for(int ii = 0; ii < size;ii++)
         num += *((arr + ii*4) + examID);
     int average = num / size;
-    printf("%d\n", average);
     return average < curveValue;
 }
-void SetNewCurve(int size, int examID, int *arr)
+
+int SetNewCurve(int size, int examID, int *arr, int maxGrade) 
 {
     int max = 0;
     for(int ii = 0; ii < size; ii++)
@@ -19,45 +19,93 @@ void SetNewCurve(int size, int examID, int *arr)
         if(value > max)
             max = value;
     }
-    int addition = 100 - max;
-    printf("addition is %d \n", addition);
-    for(int ii = 0; ii < size; ii++)
-        *((arr + ii*4) + examID) += addition;
+    int addition = maxGrade - max;
+    return addition;
 }
+
 int RandomGenerator(int lower, int upper)
 {
     int num = ( rand() % (upper - lower + 1) + lower);
     return num;
 }
 
-int main(){
-    int students[100][4]; // initialize 100 students and each student has 4 grades
-    //Initialize random grades
-    for(int ii = 0; ii < 100; ii++)
+void DisplayStudentAverages(int size, int *arr, int setCurve, int maxGrade)
+{
+    int curves[4] = {0, 0, 0, 0};
+    //calculates the curve needed for each exam
+    for (int ii = 0; ii < 4; ii++)
+    {
+        if(NeedsACurve(size,ii,arr,setCurve))
+            curves[ii] = SetNewCurve(size, ii, arr, maxGrade);
+        else
+            curves[ii] = 0;
+    }
+    for(int ii = 0; ii < 4; ii++)
+        printf("%d ", curves[ii]);
+    printf("\n");
+    // add the curve to the exams
+    for(int ii = 0; ii < size; ii++)
     {
         for(int jj = 0; jj < 4; jj++)
         {
-            students[ii][jj] = RandomGenerator(60, 100);
+            *((arr + ii * 4) + jj) += curves[jj];
         }
     }
-    
-    for(int ii =0; ii < 4; ii++)
-    {
-        int needsCurve = NeedsACurve(100,ii,(int *)students,75);
-        if(needsCurve)
-            SetNewCurve(100,ii,(int *)students);
-    }
+    //Display the Exams
     for(int ii = 0; ii < 100; ii++)
     {
         int average = 0;
         for(int jj = 0; jj < 4;jj++)
         {
-            printf("%d ", students[ii][jj]);
-            average += students[ii][jj];
+            average += *((arr + ii * 4) + jj);
         }
-        printf("\n");
         average /= 4;
         printf("Student %d: %d \n", ii,average);
     }
+    //Restore Exams to orignal For recalculation
+    for(int ii = 0; ii < size; ii++)
+    {
+        for(int jj = 0; jj < 4; jj++)
+        {
+            *((arr + ii * 4) + jj) -= curves[jj];
+        }
+    }
+    
+}
+
+int main(){
+    int students[100][4]; // initialize 100 students and each student has 4 grades
+    //Initialize random grades
+    int maxGrade;
+    printf("What is the Maximum Possible Grade?\n");
+    scanf(" %d", &maxGrade);
+    int minGrade;
+    printf("What is the Minimum Possible Grade?\n");
+    scanf(" %d", &minGrade);
+
+    for(int ii = 0; ii < 100; ii++)
+    {
+        for(int jj = 0; jj < 4; jj++)
+        {
+            students[ii][jj] = RandomGenerator(minGrade, maxGrade);
+        }
+    }
+    //ask use if the desired curve is good enough
+    int isAcceptable = 0;
+    do {
+        int curveValue;
+        printf("What is your desired Curve?: \n");
+        scanf(" %d", &curveValue);
+        DisplayStudentAverages(100, (int *)students, curveValue, maxGrade);
+        printf("Is this an acceptable curve?(y/n): ");
+        char answer;
+        scanf(" %c", &answer );
+        if (answer == 'n')
+            isAcceptable = 1;
+        else
+            isAcceptable = 0;
+    }
+    while (isAcceptable);
+    
     return 0;
 }
