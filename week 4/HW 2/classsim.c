@@ -40,9 +40,6 @@ void DisplayStudentAverages(int size, int *arr, int setCurve, int maxGrade)
         else
             curves[ii] = 0;
     }
-    for(int ii = 0; ii < 4; ii++)
-        printf("%d ", curves[ii]);
-    printf("\n");
     // add the curve to the exams
     for(int ii = 0; ii < size; ii++)
     {
@@ -75,14 +72,13 @@ void DisplayStudentAverages(int size, int *arr, int setCurve, int maxGrade)
 
 int main(){
     int students[100][4]; // initialize 100 students and each student has 4 grades
-    //Initialize random grades
+    //Initialize max and min grade range from the user
     int maxGrade;
     printf("What is the Maximum Possible Grade?\n");
     scanf(" %d", &maxGrade);
     int minGrade;
     printf("What is the Minimum Possible Grade?\n");
     scanf(" %d", &minGrade);
-
     for(int ii = 0; ii < 100; ii++)
     {
         for(int jj = 0; jj < 4; jj++)
@@ -92,20 +88,15 @@ int main(){
     }
     //ask use if the desired curve is good enough
     int isAcceptable = 0;
+    char answer;
     do {
         int curveValue;
         printf("What is your desired Curve?: \n");
         scanf(" %d", &curveValue);
         DisplayStudentAverages(100, (int *)students, curveValue, maxGrade);
         printf("Is this an acceptable curve?(y/n): ");
-        char answer;
         scanf(" %c", &answer );
-        if (answer == 'n')
-            isAcceptable = 1;
-        else
-            isAcceptable = 0;
     }
-    while (isAcceptable);
-    
+    while (answer == 'n');
     return 0;
 }
