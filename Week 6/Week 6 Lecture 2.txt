@@ -1,0 +1,89 @@
+October 4, 2023
+	API - needs to compile in time
+	ABI - already made and can be run on any system
+	Standards
+String Functions---String Manipulation
+	why use String Function -- most system adm is looking at log files
+	string processing includes comp, search, tokens.
+	string.h - basic strings
+	ctype.h - characte testing
+	stdlib.h - string conversion.
+	char* name - ""; string are char arrays;
+Existing String handlin exits
+	string comparison, one cares about case other doesn't
+	
+	string comparison returns an int
+	functions lexically compare two inpus string
+	<0 if string 1 is lexically less than string2
+	0 if strings are lexically equal
+	>0 if string1 is lexiacally greater than string2
+	lexiacally- defination, compare alphabetical equivalent.
+	int strlen(const char *string) num of char in string.
+	\0 terminates string, doesn't count as part of string
+String Searching
+	char *strchar(const char *, int c);
+String tokenizer in C?
+	break the string ponted to by stringinto a sequence of tokens.
+	tokenizer is a function that has state.
+	token = strtok(line, " ");
+	while (token != null){
+		puts(token);
+		token = strtok(null, " ");// if a delimiter is change, it will change the delimiter
+	}
+string.h
+	char *strerror(int errornum);
+	
+ctype.h
+	take a charater retuna  non serio in for true and 0 for false;
+	tolower and toupper return a number for char value.
+stdlib.h
+	convert strings to double, int long. stoi, stof, stol
+Organizing C Code and Make
+	Preprocessor - removes comments and handles directives
+	Parser/compiler-translate c source to assembly code
+	Assembler - creates object code.
+	linker- takes all object code and create a sinle executable file
+	These steps allow us to throw in debuging statements and remove them.
+	can have huge section of code not into the final exec.
+	parser/compiler -
+		can have same parser/compiler and linker
+	compiler
+	//no executable have comments in them
+	produces file with extension *.s
+	lines begine with #
+	Directive: #include <filename>searches standard library for file, use for standard library files
+	Directive: #include "filename"searches current directory, then standard libreay- use for use-defined files
+	.h serves two basic purposes
+	system header supply definitions and declarionts.
+	Uder defined header
+	using -l<dir> command line option
+		all directores named this way are search left to right
+		rarely do this, because going to system to system, it doesn't work the same for each one.
+		file paths, most common is where we are.
+		C standard always looks for "file" in current directory for #include "filename"
+	Advantage
+		when change are made to a file, only tha file need be re-compiled to rebuld the program.
+		in very large program each major function can occupy a file to itself.
+		it can be reuse in other progrms, reducing development time
+		
+	Rules
+		no two files with function of same name
+		no two fie defnie same global variable
+		only one main function
+	Extern qualifer does not reserve memory for a variable.
+	for tree.h, tree.c main.c
+	gcc tree.c main.c
+	gcc main.o tree.0
+	dependencies
+		a.out->tree.o
+			|->main.o
+	GNU Make
+		a utility will handle all of this complexity on compiling with many files
+	have to specify dependency graphs
+	automatically handles update for each program
+	make file2.0 allows to target a specific model
+	in make file can make custom program.
+	make [-makefile] [-macro name]
+	[macro name] target we want to make
+	# is a comment in a make file.
+	
