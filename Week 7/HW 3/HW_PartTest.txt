@@ -1,0 +1,69 @@
+
+// A C++ program to illustrate Caesar Cipher Technique
+#include <iostream>
+using namespace std;
+ 
+// This function receives text and shift and
+// returns the encrypted text
+string encrypt(string text, int offset, int offset2)
+{
+    string result = "";
+ 
+    // traverse text
+    for (int i = 0; i < text.length(); i++) {
+		int mod = ii % 2;
+		int offsetToUse = offset;
+		if (mod == 0)
+			offsetToUse = offset2;
+        // apply transformation to each character
+        // Encrypt Uppercase letters
+        if (isupper(text[i]))
+            result += char(int(text[i] + offsetToUse - 65) % 26 + 65);
+ 
+        // Encrypt Lowercase letters
+        else
+            result += char(int(text[i] + offsetToUse - 97) % 26 + 97);
+    }
+ 
+    // Return the resulting string
+    return result;
+}
+ string decrypt(string text, int s, int offset2)
+{
+    string result = "";
+ 
+    // traverse text
+    for (int i = 0; i < text.length(); i++) {
+		int mod = ii % 2;
+		int offsetToUse = offset;
+		if (mod == 0)
+			offsetToUse = offset2;
+        // apply transformation to each character
+        // Encrypt Uppercase letters
+        if (isupper(text[i]))
+            result += char(int(text[i] - offsetToUse - 65) % 26 + 65);
+ 
+        // Encrypt Lowercase letters
+        else
+            result += char(int(text[i] - offsetToUse - 97) % 26 + 97);
+    }
+ 
+    // Return the resulting string
+    return result;
+}
+// Driver program to test the above function
+
+
+
+int main()
+{
+    string text = "ATTACKATONCE";
+    int s = 4;
+	int rand = 2;
+    cout << "Text : " << text;
+    cout << "\nShift: " << s;
+    string cipher = encrypt(text,s);
+    cout << "\nCipher: " << encrypt(text, s,rnd);
+    cout << "\nCipher: " << decrypt(cipher, s,rnd);
+    return 0;
+}
