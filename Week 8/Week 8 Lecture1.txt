@@ -1,0 +1,30 @@
+Week 8 lecture 1
+when printing directory, will alos include .. and . for current and parent directory
+C allow to differentiante type (DT_REG) is for file (DT_DIR) is for directory
+
+Skip . and .. directory to print directory content, so that we don't recursivly check them again
+
+when going to a path that doesn't exist, it will cause a segmentation fault will need to concatenate path with current directory
+
+slashes will be need, check to make sure that the name works ( "dir/{Current directory}/")
+2 optins, can change directory as we move, if we change to working directory, can just reference directory in there. If don't wish todo that, then we have to write fullpath to location
+
+libraris to use for some directory comparing?
+#include<pwd.h>
+#include<unistd.h>
+#include<string.h>
+
+strncmp(path, ".c",-2); String comparison to find the correct file type.
+strstr(char* haystack, char *needle); looking for needle in haystack ( tadah)
+
+so we can do
+if(strstr(path, extenstion) != NULL)
+	{//do stuff}
+
+can also just check if the last letter in array of directory is a c file
+//C doesn't have an end with function
+
+
+need to check to see if a file is a text file.
+//for HW will need to check a way to detect a text file. Next week is  when we learn about ports
+
