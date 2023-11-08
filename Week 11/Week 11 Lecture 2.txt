@@ -1,0 +1,122 @@
+November 8, 23
+
+Chapter 10 for reading about signals
+Signals, 
+	easy, but not really
+	problem, how to use and how to abuse
+IPC and Signals
+	signals are easy to do. but hard in practice
+	Timers and IPC - super easy, until sockets
+How does it work
+	code for signals are simple.
+Inter procedional calls(IPC)
+	Use signals mostly to raise a flag to shut down some prog
+What are the main usage of signals
+	Inter procec communication
+	signals, pipes , queues semaphoes and sockets are usefull for different process to commuicate with each other. 
+	Sockets only way to commuicate wti different computers
+	Pipes to run a command and get an output out of it.
+	Signals use to be a single server, a pipe can communicate with each other. 
+Signals
+	software interupts for asynch  events.
+		come from different computers or from different parts of the program
+	Signals are a primitive form of IPC
+	Events occur asynch. and the prog handles them
+		Signals handler are registred with the kernel
+		So if some event occurs, we can raise a signal and do something with it.
+	why still use? 
+		really cheap to use. Something occurs and we will need to deal with it once the event occurs. 
+		events occur and are dealt with on time
+		like a polling method of a gaming engine.
+	Can decide to deal with the signal once it occurs, but we can also decide to when to do with it.
+Signal Lifecycle
+	a signal is a raised
+	Kernel stores the signal
+	Then the kenel handles the signal
+	
+	3 things to do with it
+		ignore it
+		catch and handle
+			can block signal
+		perform the default action
+	blocking, not listening to any signal. Don't block them all, but just some of the signal
+Signal Identifiers
+	all signal has a symbolic name with prefix SIG
+	with libray signa.h
+	always use symbolic name, because each system could have its own number. Better to use that
+	kill -l is ued to send signals to programs
+		want to identify what signal to send, becaue default is kill terminal
+	Each signal has a SIG____ format
+	can't catch sigkill, it will terminate your program
+	SIGTERM mostly use to free up a process resoureces
+	99% care about sigterm and siguser and sigstop
+		if we want continue to work, need to clean it up to make sure it actually works
+
+
+Basic Signal Management
+	typedef void(*signalhandler_t)(int)
+	sig_DLF, SIG_INg
+	useful for debugin purpusoes
+	int pause(void)
+	allow user to wait for signal from occuring
+	forks don't have pending signal
+	Signals that are held and are waiting stay with the parent
+	Execs, the code base changes and so the handled is not inherited
+mapping signal number
+	extern const  char* oconst sys_siglist[]
+Sending signal
+	int Kill(pid_t pid, int signo)
+	pid = 0, sned signo to al process group
+	pid = -1, sned singo to all prcoess it has permission to send a signal.
+	most of time, system programing, writing prog to write on the system
+		rare to use the pid = -1
+	EINVAl for a bad signal ( number that doesn't make sense to the system)
+	EPERM don't have a permission
+	ESRCH bad process or a zombie
+		a zombie is a process that is finish. has nothing to do. just waiting. can't send signal cause it done
+	kill [-signal] pid
+	kill -9 pid
+		guarantees that a process will die, its a unstopabble kill switch. its uncatchable
+		need it to stop a program from being hung
+	not prog can be start or stop because of failures
+Permissions
+	need to have permission to send signal to a process
+	if we run process with different UID, will need to find a way to get the UID and communicate.
+	Sockets are a sledgehammer for different process communication
+Reentrancy
+	A signal can come from anywhere while the process is executing
+		could be in a middle somethign delicate that owuld leave the systemin an inappropritate state
+	Signal handlesr should never assume they know where or what the systme was doing and should be very care about:
+		manipulating global variables
+	A reentrant function, is a function tat doesn not manipulate static data, must only manipulate only stack data or data supplied by the call and must not call nonreentrant functions
+		Identiify where we can block the signal so taht it doesn't mess with anything. then we unblock
+	Need to learn how to block signals to ensure that we don't recieved signals at critical times
+	BLOCK != IGNORING
+		BLOCKing signal allow the users to decide when to handle the signal
+Signal Sets
+	a datatype which represents multiple signals
+	going to block but based on a group, instead of one
+	We can get the set, create a set, add to the set. block and continue with original set
+Signal Mask
+	the signal mask of a process is the set of signal tha are blocked from deliery to that process
+Pending SIG
+	a commons use of sigsuspend is to unblock signal
+PIPES
+	older form of UBIC IPC
+		two limitations
+		half duplex communication
+		can only be used between process that share a common ancestor
+	just 2 pipes to allow for a full pipe
+	used to be the most common, not anymore
+	they are still heavily use, a graphic processor are better for it. cheap and easy to close and open
+	Sockets are better for other useage right now
+	Same relationship, but tighther.
+	FILE *popen(char *command, char* mode);
+	to make a pipe.
+	can communicate with another process. a standard in and a standard out.
+	don't have read write, only one way of communication
+	pclose(FILE *stream) to end the item.
+	it opend a shell, so any UNIX commande in the terminal can be used
+	Don't forget that directory and paths matter.
+	Just stay with absolute paths to reduce the headaches
+SIGNALS ARE MEANT FOR PROCESS NOT THREAD
