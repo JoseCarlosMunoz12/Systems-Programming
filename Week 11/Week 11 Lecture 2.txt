@@ -120,3 +120,4 @@ PIPES
 	Don't forget that directory and paths matter.
 	Just stay with absolute paths to reduce the headaches
 SIGNALS ARE MEANT FOR PROCESS NOT THREAD
+MASK is a signal set-> a firewall. identify, which one will want to block and unblock
