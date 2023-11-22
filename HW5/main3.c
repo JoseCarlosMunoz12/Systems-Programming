@@ -73,8 +73,6 @@ void processDirectory(char * fn, int id) {
     }
     //close directory
     closedir(dir);
-
-
 }
 
 void * searchCharacter(void *fn){

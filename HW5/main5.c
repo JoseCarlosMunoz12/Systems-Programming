@@ -16,6 +16,7 @@ int frequency[26] = {0};
 //threads and thread counter
 int counter = 0;
 pthread_t tid[10000];
+pthread_mutex_t lock; 
 
 
 void * processFile(void * fn) {
@@ -33,9 +34,9 @@ void * processFile(void * fn) {
             //it's an alpha character (a-z)
             c = tolower(c);
             //make darn sure it's a-z
-            if (searchChar == c) {
+            if (c >= 'a' && c <= 'z') {
                 //increment frequency
-                frequency[id]++;
+                frequency[c - 'a']++;
             }
         }
     }
@@ -66,12 +67,16 @@ void * processDirectory(void * fn) {
             if ((strcmp(dentry->d_name,".") != 0) && (strcmp(dentry->d_name,"..") != 0)) {
 				char newBuff[1000] = {0};
 				strcat(newBuff, buffer);
+				pthread_mutex_lock(&lock);
 				pthread_create(&tid[counter++], NULL, processDirectory,(void *)newBuff);
+				pthread_mutex_unlock(&lock);
 			}            
         } else if (dentry->d_type == DT_REG) {
 			char newBuff[1000] = {0};
 			strcat(newBuff, buffer);
+			pthread_mutex_lock(&lock);
 			pthread_create(&tid[counter++], NULL, processFile,(void *)newBuff);
+			pthread_mutex_unlock(&lock);
         }
         
         //actually read an entry
@@ -79,8 +84,7 @@ void * processDirectory(void * fn) {
     }
     //close directory
     closedir(dir);
-
-
+	return NULL;
 }
 
 int main() {

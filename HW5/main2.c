@@ -13,6 +13,7 @@
 
 int counter = 0;
 pthread_t tid[10000];
+pthread_mutex_t lock; 
 //need a frequency
 
 int frequency[26] = {0};
@@ -71,7 +72,9 @@ void * processDirectory(void *fn){
             if ((strcmp(dentry->d_name,".") != 0) && (strcmp(dentry->d_name,"..") != 0)) {
                 char newBuff[1000] = {0};
                 strcat(newBuff, buffer);
+				pthread_mutex_lock(&lock);
                 pthread_create(&tid[counter++], NULL, processDirectory,(void *)newBuff);
+				pthread_mutex_unlock(&lock);
             }
             
         } else if (dentry->d_type == DT_REG) {
