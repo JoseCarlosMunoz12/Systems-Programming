@@ -1,0 +1,146 @@
+November 27, 2023
+
+Introduction to Network Programming
+		Sockets time!!!
+		Connecting external machines. so much headaches
+		Exam on Wednesday December 11 at 9:30 am to 12pm
+		Exam on Monday December 11 at 11 am to 1:30 pm
+	Networking Programming
+		port number and ID number. mostly what we care about
+		Application protocols and standardization
+		There is a protocol for what you want. Search for it.
+		Client/Server and peer to peer
+	Terminology
+		Each machine in netowrk is a node.
+			nodes which are computers are called hosts
+		each node has an adress, Unique id
+		some have names for human usage.
+	Modern day
+		most madern net. are packet switched
+			data is broken into packets.
+		Protocols: rules of which how towo computers communicated
+	Two from of communication
+		Connection-oriented
+			Paradigm
+				form a connection
+				send/recieve data over connection
+				terminates the connection
+			Gurantee badnwidth
+		Connectionless
+			Paradigm
+				form packets of data
+				pass to network.
+			each packet travels indep.
+			packets includes identification of destination
+			each packet can be a different size
+				max packsed size is fixed in the netowrk
+			Network drop packets of data all the time.
+		Some stuff are pretty important so a connection may be chosen over connectionionless
+	Why so many protocols
+		soo many disconnected pieces and disconnected parts
+			Issues can occur. 
+				Hardware connection
+				Network congestion
+				packet delay
+				data corruption
+				data duplication or inverted arrivals
+	Break the problem into parts
+		Devide and conquer. what we get is layered protocols
+	TCIP/IP Model
+		Application->Transport->Internet->Network Interface->Physical
+	NetworkLayer
+		IP is connectionless
+		Best Effort Delivery
+			No guarantee on order, delivery duplication
+		Provides machine to machine communcation
+			if too many messages go to on place one "connection control" is dropping the ones that it can't use
+	Address used to send destination
+		IP Address
+			32 bit binary values
+			Address is always divided into two parts
+			prefix and Prefix
+		the division of Suffix/prefix is harder than it seems
+		need to have an idea how long is the mask. 
+		192.60.128.0->192.60.128.9/22
+		8.8.8.8 always send us to Google.com
+	DNS used to support the stuff
+	
+	Transport Layer
+		provides end to end connection from application program to application program
+		handles reliability, flow control
+		Protocols here are tcp and UDP
+		To differentiate host application on the same server use port number
+		
+	UDP
+		connection-less
+		best effort
+		Primary allows to low overheard and makes it fast.
+	TCP
+		Connection-oriented
+			notion of virtual circuit
+			Guarantees->Delivery and Order
+		Telnet type services use TCP
+	port number 80 for http
+		some port values are already design for some usages
+		client ports range from 1024 to 65535
+			Os handles the clinet request for a port number
+			these ports are temporary
+		Defining a protocol so that the client and server are on the same page and how to respond to the message
+	Protocols
+		most are command and reply
+		Telnet and smpt transmist text dat in standard ascii
+		SMPT uses MIMe standard for sending non text data
+			HTTP incorporates some key aspeccts of MIME
+	Transport
+		Telnet, FPT, SMTP and Http all depend on reliable transport protocol
+		Tlnet, SMTP and HTTP use a single tcp connection
+	Stae
+		Http servers are stateless
+	Each protocol are tailored to the application
+		
+	Network Application design
+		client/server
+		peer to peer
+		Hybrid Systems
+	Client/Server
+		a client initiates a request and the server fulfulls the request
+		basic model
+			server starts first and waits for contact
+			client start a second and initate contact
+		normal operation is one server one client
+	local Host -> your system.
+		if can't connect to local host
+			firewall, server is down
+			90% of firewall ignore local host
+	Standardization occur when Http occur
+		each browser had thier own method. of handling connection. Could cause issue. So some standardization was made
+
+Sockets in C
+	low level sockets allow to fine tune the message data that high level sockets can't
+	don't have to worry about IO much.
+	Bind to a server and say what connection we are at
+	client/server usually dealing with threads and deamons. going to ramp up quickly
+	Network IPC
+	Sockets allow for communcation endpoint (allow communcation with other machines)
+	Each socket 
+	int socket(int domain, int type, int protocol)
+	Domains
+		I_NEt, INET6 and UNIX. No unix, its mostly for intramachine communication.
+	Socket Type
+		DGram
+			UDP Interface
+		RAW
+			datagram interface to IP
+		Seqpacket
+			Fixed length reliable sequenced, connection oriented messages
+		Sock_Stream
+			TCP interface
+		not goint o to RAW and Seqpacket for this class
+	Socket functions
+		close, read and write
+		close dealloceates the socket
+		read to recv w/o flags
+		write to send/o flags
+	It bidirectional -> fullduplex
+	
+	
