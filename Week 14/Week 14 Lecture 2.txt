@@ -88,8 +88,12 @@ Socket Lecture
 			create a deamon, get ou fo the process group, change dir and then process stuff.
 			Next Wednesday, a simple echo server will be created. that does all the deamon stuff and socket stuff.
 			Need to make sure, when creating an address, will set to all local port.
-			
-	
-	
-	
+			client connect to socket, doesn't bind.
+			listen -> listen to this port in this address
+			accept -> where we get the connection
+Code
+	why write can also use send. when using a socke data string, send and write works the same.
+	client side, we can't connect o any addres,, only one address. connect fo serve side. just wait until we are connected  or failed.
+	./ "func" & -> sends the the process to the background also returns the process id
+	kill -9 [process Id] ->guranntess kill of process
 	
