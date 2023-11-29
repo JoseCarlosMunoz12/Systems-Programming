@@ -1,0 +1,95 @@
+November 29, 2023
+
+Socket Lecture
+	Quick exam info
+		10 t/f 13 /15 answer questions
+		Room 326
+		results have all 10 outputs and explain results.
+		no executables in the zip file
+	Byte Ordering
+		litte/Big Endian
+		Big-Endian - highest byte address in the lease signiciant byt
+		Little endian- LSB contains the lowest byte address
+	Host/Network
+		Netowkr refers to the fact hat TCp uses big-endian
+		hot implies the computer you are on
+		htonl()-> long
+		htons()-> short
+		ntonl() - >
+		need these for the port to open correctly
+	Addres format
+	set of struct allow us to perform 90% of what we need to do
+		sockaddr
+			takes addre family and data that ontains desination adddress and port number
+		sockaddr_in
+			has address and a port number
+			sin_zer padding
+			sin_port must be in network byte order
+		in_addr
+		convert and IP address in number and dots noations into an  unsigned long
+		already in netowrk byte order
+		htons(); ports but be converted.
+		cant take a IP addres and shove it.
+		ntoa converts the address pecified by in in_addr for human readability
+	we can use host in to get host by name. the host name give an IP adddress
+	hostent
+		a sturcutre that has a host name and other information
+		aliases, address type, lengh of address, a point to the list of addresses of the host
+		host can have more than one address
+	Associating addresses with sockets
+	
+		sockets  we create it and the kernel gives us a socket.
+		but it is not connecte to an addres, so we have to bind it to an address
+		addres must be bvalid for the machine and port number must be higher than 1024 (if you have appropriate permission, then lower port number can be done)
+		portnumber == 0
+			choses the firs unused port
+			(don't use this, should be a temporary thing)
+			we want to 
+			InADDR_ANY, automatically fill in the aip adress of the macine the process is running on
+	Default an discovery
+		so we made a socker and bind it
+		getsockname()
+			get addres bound to the socket
+			
+		getpeername() much more important
+			if we are connected, we want to know who we are connected to.
+			reutrn he address of its peer.
+			use this for the client server.
+			clients never want to know hier oen port number. also don't care much about the peername. these are more for the server side
+	timet to connect
+		we need to establich a connection.
+			connect() need to establish a connection.we can connect with dgram.
+		server mechanism
+			server is willing to accept conetion by using listen()
+			backlog is a queue size
+			backlong -> how many instantanous do we want to supoort
+				how many depends on the system. usually 5 or 10. In real usage, just ramp it up until it start failing.
+				small number becaue it will start manangin the queue rather than doing work
+			accept() send message until it connects to the server
+	Transfering Data
+		Connection oriented
+			simple send and recv function.
+		Connectionless
+			send to recvfrom. Socket data gram must always be sent with a send and a from.
+				if we do a connect we can use a send and a recv, but still does the work
+		send(sofkd, void * buff, size, int flag)
+			same flags as read and write
+			
+		sendto() and recvfrom() need a struct sockaddr.
+		nee to have a desitnation to have an idea where and to whom it comes fram
+	Client/Server mdoe
+		server
+			wait request and process thema nd then serves replies
+		client
+			send message and wait for a respond. then it responds after a replies back
+	where d o threads occur in the server
+		thread usually occur when a accepting an incomming connection, process stuff and continue
+		if we use a fork, must occur before the bind. can bind on the same port.
+			create a deamon, get ou fo the process group, change dir and then process stuff.
+			Next Wednesday, a simple echo server will be created. that does all the deamon stuff and socket stuff.
+			Need to make sure, when creating an address, will set to all local port.
+			
+	
+	
+	
+	
