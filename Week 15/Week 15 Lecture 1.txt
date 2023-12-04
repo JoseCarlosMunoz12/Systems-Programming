@@ -1,0 +1,24 @@
+December 4, 2023
+
+More Sockets Stuff
+	Signals -> not to be use as event system. Event system more for handlers.
+	Signals -> work more as exception handlers. Not worth it for event system.
+	
+	Wednesday , 12/13/2023 9:30 am to 12:00
+	10 Tf/
+	13/16 short answer questions
+	23 to 26 questions in total
+	read book, slides and see code and understand what is going on
+	kill -9 [pid] kills pid process
+	need tp convert sin address and sinport in order to display it.
+	
+	p4. only going to liste to local host instead of the whole device.
+	by default it is not getting the host name, even though there is a host.
+	local host is going to get a NULL.
+	when connecting it will always make a new port to use and once done, it will kill it.
+	need to be the same port number to connect.
+	if the socket is just a simple string messsage, we can use the simple write to file commands
+	when port is used, it can't be used until the port is clear
+	
+	Changing state for the server
+	

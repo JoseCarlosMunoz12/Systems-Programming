@@ -1,0 +1,10 @@
+Average Execution time nsec =151893264 ns
+Average Execution time nsec =150479565 ns
+Average Execution time nsec =147842107 ns
+Average Execution time nsec =146783766 ns
+Average Execution time nsec =144313620 ns
+Average Execution time nsec =147789575 ns
+Average Execution time nsec =145283258 ns
+Average Execution time nsec =155203991 ns
+Average Execution time nsec =112407331 ns
+Average Execution time nsec =107415288 ns
