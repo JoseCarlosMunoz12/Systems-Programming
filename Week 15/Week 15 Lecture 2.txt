@@ -1,0 +1,52 @@
+December 6, 2023
+
+Continuing Sockets
+	write on  low level will flush.
+	The isue on this program. is that.
+	fgets() -> ask for line.
+	we have to think of the format of the message.
+	if server sends a string when the client is waiting for a line, it will not accept it until it gets what it wants
+	order and format matter.
+	
+	using sockets is easy, but need to make sure it is using the protocol correctly.
+	
+	detaching a thread in a forever loop.
+	Main thread never allow to close. (it is fine in this situation)
+	
+	have a queue list for allowing new threads to occur.
+	
+	if fork, for server 4. still in the same process group. No state to save in this situation so need to handle signals.
+	debian allow us to use the daemon. sets parent ID and changes the whole process group and premission
+	ps aux | grep server to find server in the system running
+	
+	Since not threading, new clients will be waiting
+	
+	Server 4 is the one with threading being detached?(or is this the fork one with daemon)
+	based on this, we can know how many the server can meet
+	
+	
+	
+	
+	process Management
+	can use the Dameon on Debian(). but the fork to kill parent to setsid() to change dir() to close all file descriptors then ope file descripts 0 1 2 and redirect them to /dev/null.
+	(how to change file descriptors for the new fork())
+	need to get out of process group so that the signal won't affect them all.
+	
+	
+Exam stuff and recap 
+	why we don't want to use sleep()
+	how come. it doesn't stop the processors. But the process doesn't give up the space.
+	good for basic timing.
+	better use a form of alarm()
+	alarm does not block and the cpu will switch betweeen processess
+	
+	process managemet, might see some. be casue we build a daemon ( well from the server)
+	3 / 11 * 26 = 7
+	4 / 11 * 26 = 10
+	2 / 11 * 26 = 4
+	2 / 11 * 26 = 4
+	
+	
+	
+	
+	
